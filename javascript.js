@@ -3,13 +3,13 @@ function getComputerChoice () {
     let result;
     switch (rand) {
         case 0:
-            result = 'Tic';
+            result = 'Rock';
             break;
         case 1:
-            result = 'Tac';
+            result = 'Paper';
             break;
         case 2:
-            result = 'Toe';
+            result = 'Scissors';
             break;
     }
     return result;
