@@ -14,27 +14,30 @@ function getComputerChoice () {
     }
     return result;
 }
-
-function playRound(player = playerSelection, computer = computerSelection) {
+function capitalize(str) {
+    end = str.slice(1);
+    return str.charAt(0).toUpperCase() + end;
+}
+function playRound(player = getComputerChoice (), computer = getComputerChoice ()) {
     player = player.toLowerCase();
     computer = computer.toLowerCase();
-    result = 'Player';
+    result = `You win! ${capitalize(player)} beats ${computer}`;
+    lostResult = `You lose! ${capitalize(computer)} beats ${player}`;
     if (computer === player) {
-        result = 'Tie';
+        result = `Tie! You both chose ${computer}`;
     } else {
         switch(player) {
             case 'rock':
-                result = (computer === 'paper') ? 'Computer' : 'Player';
+                result = (computer === 'paper') ? lostResult : result;
                 break;
             case 'paper':
-                result = (computer === 'scissors') ? 'Computer' : 'Player';
+                result = (computer === 'scissors') ? lostResult : result;
                 break;
             case 'scissors':
-                result = (computer === 'rock') ? 'Computer' : 'Player';
+                result = (computer === 'rock') ? lostResult : result;
                 break;
         }
     }      
-    console.log(`${player} vs. ${computer} = ${result}`);
     return result;
 }
 
