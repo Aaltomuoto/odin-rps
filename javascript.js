@@ -14,3 +14,29 @@ function getComputerChoice () {
     }
     return result;
 }
+
+function playRound(player = playerSelection, computer = computerSelection) {
+    player = player.toLowerCase();
+    computer = computer.toLowerCase();
+    result = 'Player';
+    if (computer === player) {
+        result = 'Tie';
+    } else {
+        switch(player) {
+            case 'rock':
+                result = (computer === 'paper') ? 'Computer' : 'Player';
+                break;
+            case 'paper':
+                result = (computer === 'scissors') ? 'Computer' : 'Player';
+                break;
+            case 'scissors':
+                result = (computer === 'rock') ? 'Computer' : 'Player';
+                break;
+        }
+    }      
+    console.log(`${player} vs. ${computer} = ${result}`);
+    return result;
+}
+
+const computerSelection = getComputerChoice();
+const playerSelection = 'rock';
