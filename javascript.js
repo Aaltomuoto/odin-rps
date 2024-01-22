@@ -33,22 +33,22 @@ function capitalize(str) {
 }
 
 function playRound(player = playerSelection, computer = computerSelection) {
-    player = player.toLowerCase();
-    computer = computer.toLowerCase();
-    let result = 'win';
+    const playerChoice = player.toLowerCase();
+    const computerChoice = computer.toLowerCase();
+    let result = 'lose';
 
-    if (computer === player) {
+    if (computerChoice === playerChoice) {
         result = 'tie';
     } else {
-        switch(player) {
+        switch(playerChoice) {
             case 'rock':
-                result = (computer === 'paper') ? 'lose' : 'win';
+                result = (computerChoice === 'paper') ? 'lose' : 'win';
                 break;
             case 'paper':
-                result = (computer === 'scissors') ? 'lose' : 'win';
+                result = (computerChoice === 'scissors') ? 'lose' : 'win';
                 break;
             case 'scissors':
-                result = (computer === 'rock') ? 'lose' : 'win';
+                result = (computerChoice === 'rock') ? 'lose' : 'win';
                 break;
         }
     }
@@ -58,6 +58,11 @@ function playRound(player = playerSelection, computer = computerSelection) {
 function game() {
     let computerWin = 0;
     let playerWin = 0;
+    let winner, 
+        theResult, 
+        computerSelection, 
+        playerSelection;
+
     for (i=1; i<=bestOf;i++) {
         computerSelection = getComputerChoice();
         playerSelection = prompt();
@@ -67,6 +72,7 @@ function game() {
         if (theResult === 'lose') computerWin++
         console.log(`${playerSelection} vs. ${computerSelection}`);
     }
-    let winner = (playerWin > computerWin) ? 'player' : 'computer'
+
+    winner = (playerWin > computerWin) ? 'player' : 'computer'
     console.log(`Player wins ${playerWin}, computer wins ${computerWin}, ${winner} wins!`);
 }
