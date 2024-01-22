@@ -1,6 +1,9 @@
 
 let playerSelection = 'rock';
 let computerSelection = getComputerChoice();
+const bestOf = 5;
+let computerWin = 0;
+let playerWin = 0;
 
 const buttons = document.querySelectorAll('.btn')
 buttons.forEach(function(currentBtn){
@@ -36,27 +39,38 @@ function capitalize(str) {
 function playRound(player = playerSelection, computer = computerSelection) {
     player = player.toLowerCase();
     computer = computer.toLowerCase();
-    result = `You win! ${capitalize(player)} beats ${computer}`;
-    lostResult = `You lose! ${capitalize(computer)} beats ${player}`;
+    result = 'win';
+
     if (computer === player) {
-        result = `Tie! You both chose ${computer}`;
+        result = 'tie';
     } else {
         switch(player) {
             case 'rock':
-                result = (computer === 'paper') ? lostResult : result;
+                result = (computer === 'paper') ? 'lose' : 'win';
                 break;
             case 'paper':
-                result = (computer === 'scissors') ? lostResult : result;
+                result = (computer === 'scissors') ? 'lose' : 'win';
                 break;
             case 'scissors':
-                result = (computer === 'rock') ? lostResult : result;
+                result = (computer === 'rock') ? 'lose' : 'win';
                 break;
         }
     }
-    console.log(result);
     return result;
 }
 
 function game() {
-    
+    computerWin = 0;
+    playerWin = 0;
+    for (i=1; i<=bestOf;i++) {
+        computerSelection = getComputerChoice();
+        playerSelection = prompt();
+        theResult = playRound(playerSelection, computerSelection);
+        if (theResult === 'tie') i--;
+        if (theResult === 'win') playerWin++;
+        if (theResult === 'lose') computerWin++
+        console.log(`${playerSelection} vs. ${computerSelection}`);
+    }
+    winner = (playerWin > computerWin) ? 'player' : 'computer'
+    console.log(`Player wins ${playerWin}, computer wins ${computerWin}, ${winner} wins!`);
 }
