@@ -10,12 +10,8 @@ buttons.forEach(function(currentBtn){
   currentBtn.addEventListener('click', () => playRound(currentBtn.id));
 })
 
-function test(testInput) {
-    console.log(testInput);
-}
-
 function getComputerChoice () {
-    let rand = Math.floor(Math.random()*3);
+    const rand = Math.floor(Math.random()*3);
     let result;
     switch (rand) {
         case 0:
@@ -32,14 +28,14 @@ function getComputerChoice () {
 }
 
 function capitalize(str) {
-    end = str.slice(1);
+    const end = str.slice(1);
     return str.charAt(0).toUpperCase() + end;
 }
 
 function playRound(player = playerSelection, computer = computerSelection) {
     player = player.toLowerCase();
     computer = computer.toLowerCase();
-    result = 'win';
+    let result = 'win';
 
     if (computer === player) {
         result = 'tie';
@@ -60,8 +56,8 @@ function playRound(player = playerSelection, computer = computerSelection) {
 }
 
 function game() {
-    computerWin = 0;
-    playerWin = 0;
+    let computerWin = 0;
+    let playerWin = 0;
     for (i=1; i<=bestOf;i++) {
         computerSelection = getComputerChoice();
         playerSelection = prompt();
@@ -71,6 +67,6 @@ function game() {
         if (theResult === 'lose') computerWin++
         console.log(`${playerSelection} vs. ${computerSelection}`);
     }
-    winner = (playerWin > computerWin) ? 'player' : 'computer'
+    let winner = (playerWin > computerWin) ? 'player' : 'computer'
     console.log(`Player wins ${playerWin}, computer wins ${computerWin}, ${winner} wins!`);
 }
