@@ -1,21 +1,16 @@
-
-let playerSelection = 'rock';
-let computerSelection = getComputerChoice();
 const bestOf = 5;
 let computerWin = 0;
 let playerWin = 0;
+let turn = 0;
+
+const choiceResult = document.querySelector('#choiceResult');
+const score = document.querySelector('#score');
 
 const buttons = document.querySelectorAll('.btn')
 buttons.forEach(function(currentBtn){
-  currentBtn.addEventListener('click', () => playRound(currentBtn.id));
+  currentBtn.addEventListener('click', () => game(currentBtn.id));
 });
 
-for (button of buttons) {
-    let btnId = button.id;
-    button.addEventListener('click', () => {
-        console.log(btnId);
-    })
-}
 function getComputerChoice () {
     const rand = Math.floor(Math.random()*3);
     let result;
@@ -38,7 +33,7 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + end;
 }
 
-function playRound(player = playerSelection, computer = computerSelection) {
+function playRound(player, computer) {
     const playerChoice = player.toLowerCase();
     const computerChoice = computer.toLowerCase();
     let result = 'lose';
@@ -61,24 +56,48 @@ function playRound(player = playerSelection, computer = computerSelection) {
     return result;
 }
 
-function game() {
-    let computerWin = 0;
-    let playerWin = 0;
-    let winner, 
-        theResult, 
+function newGame() {
+    turn = 0;
+    computerWin = 0;
+    playerWin = 0;
+
+    choiceResult.textContent = '';
+    score.textContent = '';
+}
+
+function game(selection) {
+    if (turn >= bestOf) newGame();
+
+    let overallWinner,
+        roundWinner,
+        theResult,
         computerSelection, 
         playerSelection;
 
-    for (i=1; i<=bestOf;i++) {
-        computerSelection = getComputerChoice();
-        playerSelection = prompt();
-        theResult = playRound(playerSelection, computerSelection);
-        if (theResult === 'tie') i--;
-        if (theResult === 'win') playerWin++;
-        if (theResult === 'lose') computerWin++
-        console.log(`${playerSelection} vs. ${computerSelection}`);
+
+    playerSelection = selection;
+    computerSelection = getComputerChoice();
+    theResult = playRound(playerSelection, computerSelection);
+    turn++;
+
+    if (theResult === 'tie') {
+        roundWinner = 'Tie';
+        turn--;
+    } else if (theResult === 'win') {
+        roundWinner = 'Player';
+        playerWin++;
+    } else {
+        roundWinner = 'Computer';
+        computerWin++;
     }
 
-    winner = (playerWin > computerWin) ? 'player' : 'computer'
-    console.log(`Player wins ${playerWin}, computer wins ${computerWin}, ${winner} wins!`);
+    overallWinner = (playerWin > computerWin) ? 'player' : 'computer'
+
+    let resultP = document.createElement('p');
+    resultP.textContent = (theResult === 'tie') ?  
+        `Turn${turn+1}: ${playerSelection} vs. ${computerSelection}, Tie!` :
+        `Turn${turn}: ${playerSelection} vs. ${computerSelection}, ${roundWinner} wins this round!`;
+    choiceResult.appendChild(resultP);
+
+    score.textContent = `Player wins ${playerWin}, computer wins ${computerWin}`;
 }
