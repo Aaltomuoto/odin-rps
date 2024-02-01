@@ -91,8 +91,6 @@ function game(selection) {
         computerWin++;
     }
 
-    overallWinner = (playerWin > computerWin) ? 'player' : 'computer'
-
     let resultP = document.createElement('p');
     resultP.textContent = (theResult === 'tie') ?  
         `Turn${turn+1}: ${playerSelection} vs. ${computerSelection}, Tie!` :
@@ -100,4 +98,10 @@ function game(selection) {
     choiceResult.appendChild(resultP);
 
     score.textContent = `Player wins ${playerWin}, computer wins ${computerWin}`;
+
+    if (turn === bestOf) {
+        overallWinner = document.createElement('h1');
+        overallWinner.textContent = (playerWin > computerWin) ? 'Player wins!!!' : 'Computer wins!!!';
+        score.prepend(overallWinner);
+    }
 }
