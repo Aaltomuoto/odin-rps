@@ -3,8 +3,8 @@ let computerWin = 0;
 let playerWin = 0;
 let turn = 0;
 
-const choiceResult = document.querySelector('#choiceResult');
-const score = document.querySelector('#score');
+const choiceResult = document.querySelector('#roundResult');
+const score = document.querySelector('#overallResult');
 
 const buttons = document.querySelectorAll('.btn')
 buttons.forEach(function(currentBtn){
