@@ -8,8 +8,14 @@ let playerWin = 0;
 const buttons = document.querySelectorAll('.btn')
 buttons.forEach(function(currentBtn){
   currentBtn.addEventListener('click', () => playRound(currentBtn.id));
-})
+});
 
+for (button of buttons) {
+    let btnId = button.id;
+    button.addEventListener('click', () => {
+        console.log(btnId);
+    })
+}
 function getComputerChoice () {
     const rand = Math.floor(Math.random()*3);
     let result;
